@@ -3,13 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>작업완료 확인서 작성기</title>
   <meta name="theme-color" content="#2563eb" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="application-name" content="작업완료확인서" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" href="./icons/icon-192.png" />
-
+  <title>작업완료 확인서 작성기</title>
   <style>
     :root {
       --bg: #f1f5f9;
@@ -24,7 +23,7 @@
 
     * { box-sizing: border-box; }
 
-    body {
+    html, body {
       margin: 0;
       background: var(--bg);
       color: #0f172a;
@@ -144,9 +143,7 @@
     .tab { display: none; }
     .tab.active { display: block; }
 
-    .field {
-      margin-bottom: 13px;
-    }
+    .field { margin-bottom: 13px; }
 
     .field label {
       display: block;
@@ -193,6 +190,13 @@
       gap: 8px;
       margin-bottom: 10px;
       font-weight: 900;
+    }
+
+    .helper {
+      margin-top: 8px;
+      color: #64748b;
+      font-size: 12px;
+      line-height: 1.5;
     }
 
     .image-preview {
@@ -284,24 +288,28 @@
 
     .a4 {
       width: 210mm;
+      height: 297mm;
       min-height: 297mm;
       background: white;
-      padding: 12mm;
+      padding: 7mm;
       box-shadow: 0 14px 40px rgba(15, 23, 42, 0.18);
       color: #111;
+      overflow: hidden;
     }
 
     .doc {
       border: 2px solid var(--line);
-      min-height: calc(297mm - 24mm);
-      font-size: 13px;
+      width: 196mm;
+      height: 283mm;
+      overflow: hidden;
+      font-size: 12px;
     }
 
     .doc-title {
       text-align: center;
-      font-size: 23px;
+      font-size: 20px;
       font-weight: 900;
-      padding: 12px 0 13px;
+      padding: 8px 0 9px;
       border-bottom: 2px solid var(--line);
       letter-spacing: -0.03em;
     }
@@ -319,10 +327,10 @@
     }
 
     .label-cell, .content-cell, .table-cell {
-      min-height: 13mm;
-      padding: 8px 10px;
+      min-height: 10.5mm;
+      padding: 5px 8px;
       white-space: pre-line;
-      line-height: 1.55;
+      line-height: 1.34;
       display: flex;
       align-items: center;
     }
@@ -335,16 +343,13 @@
       letter-spacing: 0.18em;
     }
 
-    .content-cell {
-      font-weight: 700;
-    }
-
+    .content-cell { font-weight: 700; }
     .br { border-right: 2px solid var(--line); }
 
     .section-title {
       border-bottom: 2px solid var(--line);
-      padding: 12px 16px;
-      font-size: 18px;
+      padding: 8px 14px;
+      font-size: 16px;
       font-weight: 900;
     }
 
@@ -355,7 +360,7 @@
     }
 
     .facility-head > div {
-      padding: 10px 6px;
+      padding: 6px 4px;
       text-align: center;
       font-weight: 900;
       border-right: 2px solid var(--line);
@@ -364,13 +369,13 @@
     .facility-head > div:last-child { border-right: 0; }
 
     .facility-row > div {
-      min-height: 16mm;
-      padding: 10px;
+      min-height: 12mm;
+      padding: 6px 8px;
       border-right: 2px solid var(--line);
       display: flex;
       align-items: center;
       white-space: pre-line;
-      line-height: 1.55;
+      line-height: 1.34;
     }
 
     .facility-row > div:nth-child(1),
@@ -382,22 +387,22 @@
     .facility-row > div:nth-child(2) { font-weight: 900; }
     .facility-row > div:last-child { border-right: 0; }
 
-    .row-check { min-height: 35mm; }
-    .row-attendees { min-height: 29mm; }
-    .row-attach { min-height: 26mm; }
+    .row-check > div { min-height: 27mm; }
+    .row-attendees > div { min-height: 22mm; }
+    .row-attach > div { min-height: 19mm; }
 
     .statement {
-      min-height: 27mm;
-      padding: 16px;
+      min-height: 21mm;
+      padding: 10px 14px;
       border-bottom: 2px solid var(--line);
       font-weight: 900;
-      line-height: 1.55;
+      line-height: 1.36;
       white-space: pre-line;
     }
 
     .date {
       text-align: right;
-      margin-top: 28px;
+      margin-top: 12px;
       font-weight: 800;
     }
 
@@ -423,7 +428,7 @@
     }
 
     .approval-head > div {
-      padding: 10px 6px;
+      padding: 6px 4px;
       text-align: center;
       font-weight: 900;
       border-right: 2px solid var(--line);
@@ -433,8 +438,8 @@
     .approval-head > div:last-child { border-right: 0; }
 
     .approval-row > div {
-      min-height: 14mm;
-      padding: 5px;
+      min-height: 11.2mm;
+      padding: 3px 4px;
       border-right: 2px solid var(--line);
       border-bottom: 2px solid var(--line);
       display: flex;
@@ -443,7 +448,7 @@
       text-align: center;
       white-space: pre-line;
       font-weight: 700;
-      line-height: 1.35;
+      line-height: 1.25;
     }
 
     .approval-row:last-child > div { border-bottom: 0; }
@@ -451,30 +456,26 @@
 
     .approval-row img {
       max-width: 100%;
-      max-height: 13mm;
+      max-height: 10mm;
       object-fit: contain;
     }
 
     .logo-area {
-      min-height: 31mm;
+      min-height: 18mm;
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      padding: 14px 26px;
+      padding: 7px 24px;
     }
 
     .logo-area img {
-      max-width: 60mm;
-      max-height: 23mm;
+      max-width: 56mm;
+      max-height: 17mm;
       object-fit: contain;
     }
 
     .empty-logo {
-      color: #94a3b8;
-      border: 1px dashed #cbd5e1;
-      border-radius: 8px;
-      padding: 14px 28px;
-      font-size: 13px;
+      display: none;
     }
 
     .notice {
@@ -500,34 +501,75 @@
     }
 
     @media (max-width: 1100px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .panel {
-        height: auto;
+      .layout { grid-template-columns: 1fr; }
+      .panel { height: auto; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .a4 {
+        transform: scale(0.62);
+        transform-origin: top center;
+        margin-bottom: -112mm;
       }
     }
 
     @media print {
-      body { background: white; }
-      .topbar, .panel { display: none !important; }
-      .layout {
-        display: block;
-        padding: 0;
+      @page {
+        size: A4 portrait;
         margin: 0;
-        max-width: none;
       }
-      .preview-wrap {
-        display: block;
-        overflow: visible;
-      }
-      .a4 {
+
+      html, body {
         width: 210mm;
+        height: 297mm;
         min-height: 297mm;
-        margin: 0;
-        padding: 12mm;
-        box-shadow: none;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+        overflow: hidden !important;
+      }
+
+      .topbar, .panel {
+        display: none !important;
+      }
+
+      .layout {
+        display: block !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+      }
+
+      .preview-wrap {
+        display: block !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        overflow: hidden !important;
+      }
+
+      .a4 {
+        width: 210mm !important;
+        height: 297mm !important;
+        min-height: 297mm !important;
+        padding: 7mm !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        page-break-after: avoid !important;
+        page-break-before: avoid !important;
+        page-break-inside: avoid !important;
+        break-after: avoid !important;
+        break-before: avoid !important;
+        break-inside: avoid !important;
+        overflow: hidden !important;
+        transform: none !important;
+      }
+
+      .doc {
+        width: 196mm !important;
+        height: 283mm !important;
+        overflow: hidden !important;
+        font-size: 12px !important;
       }
     }
   </style>
@@ -535,11 +577,11 @@
 <body>
   <header class="topbar">
     <div>
-      <h1>작업완료 확인서 작성기 - PC 검토용</h1>
-      <p>왼쪽에서 수정하면 오른쪽 A4 미리보기에 바로 반영돼. 검토 후 구조를 고정하고 앱으로 확장하면 돼.</p>
+      <h1>작업완료 확인서 작성기</h1>
+      <p>배포용 공란 양식이야. 입력값, 로고, 서명은 각 기기 브라우저에 저장돼.</p>
     </div>
     <div class="buttons">
-      <button id="resetBtn">기본값</button>
+      <button id="blankBtn">공란으로 초기화</button>
       <button id="saveBtn">현재 자료 저장</button>
       <button class="primary" id="printBtn">PDF 출력</button>
     </div>
@@ -600,12 +642,16 @@
         <div class="box">
           <div class="box-title">
             <span>회사 로고</span>
-            <label class="file-label">
-              이미지 선택
-              <input type="file" id="logoInput" accept="image/*" />
-            </label>
+            <span style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
+              <label class="file-label">
+                이미지 선택
+                <input type="file" id="logoInput" accept="image/*" />
+              </label>
+              <button class="danger" id="clearLogoBtn" type="button">로고 지우기</button>
+            </span>
           </div>
           <div class="image-preview" id="logoPreview">로고 이미지를 선택해줘</div>
+          <div class="helper">로고는 선택하면 자동 저장돼. 같은 브라우저/기기에서는 다시 열어도 유지돼.</div>
         </div>
 
         <div class="box">
@@ -627,7 +673,7 @@
       <section class="tab" id="exportTab">
         <div class="notice">
           PDF 출력 버튼을 누르면 브라우저 인쇄창이 열려. 프린터 대상에서 <b>PDF로 저장</b>을 선택하면 돼.
-          양식 검토 단계에서는 이 방식이 제일 빠르고 안정적이야.
+          A4 한 페이지에 맞도록 여백과 행 높이를 줄였어. 출력 설정에서 용지는 A4, 배율은 기본/100%로 먼저 테스트해봐.
         </div>
         <div class="file-name" id="fileNamePreview"></div>
         <br />
@@ -714,7 +760,7 @@
           </div>
 
           <div class="logo-area" id="logoArea">
-            <div class="empty-logo">회사 로고</div>
+            <div class="empty-logo"></div>
           </div>
         </div>
       </div>
@@ -722,24 +768,24 @@
   </main>
 
   <script>
-    const STORAGE_KEY = "work_completion_confirmation_pc_v1";
+    const STORAGE_KEY = "work_completion_confirmation_blank_v3";
 
     const defaultData = {
-      projectName: "건설기술연구원 연구과제(18동, 16동, 20동)",
-      workType: "지열 및 태양열, 배관연결공사",
-      client: "1차수(철거) 지원원에너지\\n2차수(스마트플랫폼) 지원원에너지\\n3차수(18동 및 16동 FCU설치 및 배관연결공사) 지원원 에너지\\n4차수(20동 태양열측열조 배관연결공사) 지원원 에너지\\n5차수(신재생열공급 시스템 name tag 제작 및 설치) 건설기술연구원",
-      title: "현장확인 및 작업완료 확인",
-      facilityOverview: "장비설치 및 배관연결공사",
-      checkItems: "1) 스마트플랫폼 현장확인\\n2) 18동 및 16동 FCU 설치확인\\n3) 20동 옥상 및 지하 배관연결 확인, 옥외 주차장 배관연결 확인",
-      attendees: "1) 시공자 : 민성엔지니어링㈜ 신용철 과장 / 박수진 대리\\n2) 확인자 : 지원원에너지 이재하 박사 / 건설기술연구원 우스만 박사후 박사",
-      attachments: "1) 현장 미비사항 및 조치요청사항\\n2) 사진대지",
-      statement: "상기 시설/설비에 대하여 시운전 및 교육을 실시하고 인수인계하였음을 확인합니다.",
-      date: "2022. 06. 21. 화요일",
+      projectName: "",
+      workType: "",
+      client: "",
+      title: "",
+      facilityOverview: "",
+      checkItems: "",
+      attendees: "",
+      attachments: "",
+      statement: "",
+      date: "",
       logo: "",
       approvalRows: [
-        { role: "시공자", company: "민성엔지니어링㈜", position: "과장", name: "신용철", signature: "" },
-        { role: "확인자", company: "지원원에너지㈜", position: "박사", name: "이재하", signature: "" },
-        { role: "", company: "건설기술연구원", position: "박사", name: "우스만", signature: "" }
+        { role: "", company: "", position: "", name: "", signature: "" },
+        { role: "", company: "", position: "", name: "", signature: "" },
+        { role: "", company: "", position: "", name: "", signature: "" }
       ]
     };
 
@@ -771,7 +817,7 @@
 
     function saveLocal(showAlert = true) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ state, savedSignatures }));
-      if (showAlert) alert("현재 자료가 이 컴퓨터 브라우저에 저장됐어.");
+      if (showAlert) alert("현재 자료가 이 브라우저/기기에 저장됐어.");
     }
 
     function loadLocal() {
@@ -827,7 +873,7 @@
         logoArea.innerHTML = `<img src="${state.logo}" alt="회사 로고">`;
       } else {
         logoPreview.textContent = "로고 이미지를 선택해줘";
-        logoArea.innerHTML = `<div class="empty-logo">회사 로고</div>`;
+        logoArea.innerHTML = `<div class="empty-logo"></div>`;
       }
     }
 
@@ -866,7 +912,7 @@
             ${row.signature ? `<button class="danger" data-clear-signature="${index}">서명 지우기</button>` : ""}
           </div>
           <div class="image-preview">
-            ${row.signature ? `<img src="${row.signature}" alt="서명">` : "서명 이미지를 선택해줘"}
+            ${row.signature ? `<img src="${row.signature}" alt="서명">` : "서명 없음 · 출력 시 빈칸으로 표시돼"}
           </div>
         </div>
       `).join("");
@@ -937,7 +983,7 @@
           <div>${escapeHtml(row.company)}</div>
           <div>${escapeHtml(row.position)}</div>
           <div>${escapeHtml(row.name)}</div>
-          <div>${row.signature ? `<img src="${row.signature}" alt="서명">` : `<span style="color:#94a3b8;font-size:11px;">서명</span>`}</div>
+          <div>${row.signature ? `<img src="${row.signature}" alt="서명">` : ``}</div>
         </div>
       `).join("");
     }
@@ -1010,11 +1056,10 @@
 
       document.getElementById("saveBtn").addEventListener("click", () => saveLocal(true));
 
-      document.getElementById("resetBtn").addEventListener("click", () => {
-        if (!confirm("기본값으로 되돌릴까? 저장된 서명 목록은 유지돼.")) return;
-        const keepLogo = state.logo;
+      document.getElementById("blankBtn").addEventListener("click", () => {
+        if (!confirm("입력값을 공란으로 초기화할까? 저장된 로고/서명 목록도 모두 비울 수 있어. 확인을 누르면 완전 공란으로 돌아가.")) return;
         state = structuredClone(defaultData);
-        state.logo = keepLogo;
+        savedSignatures = [];
         syncSimpleInputs();
         render();
         saveLocal(false);
@@ -1037,6 +1082,20 @@
         render();
         saveLocal(false);
       });
+
+      document.getElementById("clearLogoBtn").addEventListener("click", () => {
+        if (!state.logo) return;
+        if (!confirm("저장된 회사 로고를 지울까?")) return;
+        state.logo = "";
+        render();
+        saveLocal(false);
+      });
+    }
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+      });
     }
 
     loadLocal();
@@ -1044,14 +1103,5 @@
     bindEvents();
     render();
   </script>
-
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js").catch(() => {});
-      });
-    }
-  </script>
-
 </body>
 </html>
